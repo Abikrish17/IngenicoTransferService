@@ -16,6 +16,7 @@ import com.test.ingenico.domain.AccountRepository;
 import com.test.ingenico.model.AccRequest;
 import com.test.ingenico.model.Transfer;
 import com.test.ingenico.model.TransferSvcException;
+import com.test.ingenico.util.TransferConstants;
 /*
  * TransferServiceImpl.java extends TransferService Interface
  * @Service  This tells Spring to bootstrap the service during component scan.
@@ -60,7 +61,7 @@ implements TransferService{
 		if(acc!=null)
 			acc=accountRepository.save(acc);//create Account
 		Long accNum=acc!=null&&acc.getAccNum()!=null?acc.getAccNum():0;
-		String accNumber=accNum!=0?accNum.toString():"Error Creating Account ";
+		String accNumber=accNum!=0?accNum.toString():TransferConstants.ERRORCREATEACCOUNT;
 		return accNumber;
 	}
 	/*
@@ -111,7 +112,7 @@ implements TransferService{
 
 			//check if sufficient balance available
 			if(debitAcc.getBalance().compareTo(deposit) < 0)
-				throw new TransferSvcException("Account balance is not sufficient for transfer","400");
+				throw new TransferSvcException(TransferConstants.INSUFFICIENT_BALANCE,TransferConstants.HTTP_BADREQUEST);
 
 				//Initiate Transfer - withdraw amount from debit acco
 			
@@ -123,15 +124,17 @@ implements TransferService{
 			creditAcc.setBalance(transferAmt2);
 			creditAcc=accountRepository.save(creditAcc);
 			boolean transferStatus=debitAcc.getBalance().equals(transferAMt)&&creditAcc.getBalance().equals(transferAmt2)?true:false;
-			if(transferStatus)status="Transfer Success";
-			else status="Transfer Failed";
+			if(transferStatus)status=TransferConstants.SUCCESS;
+			else status=TransferConstants.FAILURE;
 			
-			try {
+			
+			//uncomment - to test simultaneous requests
+			/*try {
 				Thread.currentThread().sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 				
 
 		return status;
