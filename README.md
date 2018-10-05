@@ -1,8 +1,6 @@
 # IngenicoTransferService
 REST API to create bank account and initiate transfer 
 
-REST API to create bank account and initiate transfer .
-
 This is a SpringBoot project built with Maven , inbuilt H2 database and embedded Tomcat server.
 
 RUNNING THE APPLICATION:
