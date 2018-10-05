@@ -1,12 +1,12 @@
 # IngenicoTransferService
 REST API to create a Bank Account and initiate amount transfer between those accounts
 
-# SOLUTION SUMMARY:
+# Solution Summary:
 1. This is a Java SpringBoot assignment built with Maven, inbuilt H2 database and embedded Tomcat server.
 2. The solution is designed to handle Multiple concurrent amount transfer request from one account to another by using JPA provided optimistic lock mechanism. 
 3. It also uses SpringBoot's Transactional to roll back in-case of any failure while executing the transaction.
 
-# RUNNING THE APPLICATION:
+# Running the application:
 
 1. Download and install JDK 8 (http://www.oracle.com/technetwork/java/javase/downloads/index.html). If you already have installed JDK 8, you can skip this step.
 2. Download and install Maven 8 (http://maven.apache.org/download.html#Installation). If you have already installed Maven , you can skip this step.
